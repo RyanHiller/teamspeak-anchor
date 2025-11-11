@@ -14,7 +14,14 @@ let silencePlayer = null
 const logger = winston.createLogger({
     level: "info",
     format: winston.format.combine(
-        winston.format.timestamp(),
+        winston.format.timestamp({
+            format: () => {
+                return new Date().toLocaleString("en-US", {
+                    timeZone: "America/Denver",  // Mountain Time zone (MST/MDT)
+                    hour12: false,
+                });
+            },
+        }),
         winston.format.printf(({timestamp, level, message}) => `${timestamp} [${level}] ${message}`)
     ),
     transports: [
