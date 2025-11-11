@@ -1,0 +1,19 @@
+{
+  "name": "teamspeak-anchor",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.19.0",
+    "@snazzah/davey": "^0.1.7",
+    "discord.js": "^14.24.2",
+    "dotenv": "^17.2.3",
+    "winston": "^3.18.3"
+  }
+}
