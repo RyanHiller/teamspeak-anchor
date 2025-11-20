@@ -15,6 +15,7 @@ import winston from "winston"
 // Config
 const TOKEN = process.env.DISCORD_TOKEN
 const GUILD_ID = process.env.GUILD_ID
+const DEFAULT_CHANNEL_ID = process.env.CHANNEL_ID
 let targetChannelId = null
 let silencePlayer = null
 
@@ -150,7 +151,16 @@ setInterval(() => {
 // Discord Event Handling
 client.once(Events.ClientReady, async () => {
     logger.info(`Logged in as ${client.user.tag}`)
+
+    // Register slash commands
     await registerCommands()
+
+    // Auto join server/channel defined in env when bot starts
+    if (GUILD_ID && DEFAULT_CHANNEL_ID) {
+        const voiceChannel = client.channels.cache.get(DEFAULT_CHANNEL_ID)
+        connectToVoice(voiceChannel)
+        logger.info(`Anchored to ${voiceChannel.name} (${DEFAULT_CHANNEL_ID})`)
+    }
 })
 
 client.on(Events.InteractionCreate, async (interaction) => {
